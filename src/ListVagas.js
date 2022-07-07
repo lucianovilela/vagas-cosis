@@ -16,11 +16,12 @@ const ListVagas = () => {
 
   const [list, setList] = useState([]);
   useEffect(() => {
-    let ontem = new Date(data);
-    ontem.setDate(data.getDate() - 1);
+    let amanha = new Date(data);
+    amanha.setDate(data.getDate() + 1);
+    amanha.setHours(0,0,0,0);
     const docRef = collection(firestore, "reservas");
     getDocsFromServer(
-      query(docRef, where("data", ">=", ontem), where("data", "<", data)),
+      query(docRef, where("data", ">=", data), where("data", "<", amanha)),
       orderBy("nome")
     ).then((docs) => {
       const l = [];

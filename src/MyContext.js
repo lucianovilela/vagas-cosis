@@ -26,6 +26,7 @@ function Parent({ children }) {
         case "ADDDATE":
           let d = new Date(state.data);
           d.setDate(d.getDate() + 1);
+          d.setHours(0,0,0,0);
           return {
             ...state,
             data: d
@@ -33,6 +34,7 @@ function Parent({ children }) {
         case "MINUSDATE":
           let dm = new Date(state.data);
           dm.setDate(dm.getDate() - 1);
+          dm.setHours(0,0,0,0);
           return {
             ...state,
             data: dm

@@ -12,7 +12,7 @@ import {
 import { Box, Typography, Chip } from "@mui/material";
 
 const ListVagas = () => {
-  const [{ user, data }] = useMyContext();
+  const [{ user, data, debug }] = useMyContext();
 
   const [list, setList] = useState([]);
   useEffect(() => {
@@ -45,6 +45,7 @@ const ListVagas = () => {
             }}
           >
             <Typography>{item.nome} </Typography>
+            <Typography sx={{display:debug?'flex': 'none'}}>{JSON.stringify(item.data)} </Typography>
             <Chip
               label={
                 item.vaga === "P" || item.vaga === "nan"

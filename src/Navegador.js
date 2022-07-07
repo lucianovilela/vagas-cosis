@@ -21,7 +21,7 @@ function formatDate(date) {
 }
 
 export default function Navegador() {
-  const [{ user, data }, { addDate, minusDate }] = useMyContext();
+  const [{ user, data, debug }, { addDate, minusDate }] = useMyContext();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -34,6 +34,8 @@ export default function Navegador() {
         </IconButton>
         <Box sx={{ display: "flex", alignItens: "center" }}>
           <Typography>{formatDate(data)}</Typography>
+          <Typography sx={{display:debug?'flex': 'none'}}>&nbsp;{JSON.stringify(data)} </Typography>
+
         </Box>
         <IconButton onClick={() => addDate()}>
           <ArrowRightIcon />

@@ -8,8 +8,8 @@ import React, {
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./db";
 const MyContext = createContext();
-let defaultDate = new Date();
-defaultDate.setHours(0,0,0,0);
+let defaultDate = new Date( Date.UTC());
+//defaultDate.setHours(0,0,0,0);
 
 function Parent({ children }) {
   const [state, dispatch] = useReducer(
@@ -41,11 +41,16 @@ function Parent({ children }) {
             ...state,
             data: dm
           };
+          case "SETDEBUG":
+            return{
+              ...state,
+              debug:!state.debug
+            }
         default:
           return { ...state };
       }
     },
-    { user: undefined, list: [], data: defaultDate }
+    { user: undefined, list: [], data: defaultDate, debug:false }
   );
 
   const actions = useMemo(() => {
@@ -61,6 +66,9 @@ function Parent({ children }) {
       },
       minusDate: () => {
         dispatch({ type: "MINUSDATE" });
+      },
+      toggleDebug: ()=> {
+        dispatch({type:"SETDEBUG"})
       }
     };
   }, []);

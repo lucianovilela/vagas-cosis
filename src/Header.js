@@ -20,7 +20,7 @@ const pages = [];
 const settings = [];
 
 const ResponsiveAppBar = () => {
-  const [{ user }] = useMyContext();
+  const [{ user }, { toggleDebug }] = useMyContext();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -98,7 +98,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <GarageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <GarageIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} onClick={()=>toggleDebug()} />
           <Typography
             variant="h5"
             noWrap

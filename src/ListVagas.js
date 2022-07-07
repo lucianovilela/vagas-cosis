@@ -20,6 +20,7 @@ const ListVagas = () => {
     amanha.setDate(data.getDate() + 1);
     amanha.setHours(0,0,0,0);
     const docRef = collection(firestore, "reservas");
+    console.log("hoje:", data, "amanha:", amanha);
     getDocsFromServer(
       query(docRef, where("data", ">=", data), where("data", "<", amanha)),
       orderBy("nome")

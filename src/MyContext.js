@@ -44,7 +44,7 @@ function Parent({ children }) {
           case "SETDEBUG":
             return{
               ...state,
-              debug:!state.debug
+              debug:state.debug
             }
         default:
           return { ...state };

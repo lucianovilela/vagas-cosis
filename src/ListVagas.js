@@ -45,7 +45,6 @@ const ListVagas = () => {
             }}
           >
             <Typography>{item.nome} </Typography>
-            <Typography>{JSON.stringify(item.data)} </Typography>
             <Chip
               label={
                 item.vaga === "P" || item.vaga === "nan"

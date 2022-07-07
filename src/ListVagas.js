@@ -16,13 +16,13 @@ const ListVagas = () => {
 
   const [list, setList] = useState([]);
   useEffect(() => {
-    let amanha = new Date(data);
-    amanha.setDate(data.getDate() + 1);
-    amanha.setHours(0,0,0,0);
+    let ontem = new Date(data);
+    ontem.setDate(data.getDate() - 1);
+    ontem.setHours(0,0,0,0);
     const docRef = collection(firestore, "reservas");
-    console.log("hoje:", data, "amanha:", amanha);
+    console.log("hoje:", data, "amanha:", ontem);
     getDocsFromServer(
-      query(docRef, where("data", ">=", data), where("data", "<", amanha)),
+      query(docRef, where("data", ">=", ontem), where("data", "<", data)),
       orderBy("nome")
     ).then((docs) => {
       const l = [];
@@ -45,6 +45,7 @@ const ListVagas = () => {
             }}
           >
             <Typography>{item.nome} </Typography>
+            <Typography>{JSON.stringify(item.data)} </Typography>
             <Chip
               label={
                 item.vaga === "P" || item.vaga === "nan"

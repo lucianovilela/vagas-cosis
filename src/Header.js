@@ -13,10 +13,12 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import GarageIcon from "@mui/icons-material/Garage";
 
+import Link from './Link';
+
 import { loginGoogle, logout } from "./db";
 import { useMyContext } from "./MyContext";
 
-const pages = [];
+const pages = [{"nome":'home', "link":"/"}, {"nome":'vagas', "link":"/vagas"}, {"nome":'cartão', "link":"/cartao"}];
 const settings = [];
 
 const ResponsiveAppBar = () => {
@@ -92,8 +94,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.nome} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" component={Link} href={page.link}>{page.nome}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -120,11 +122,13 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                component={Link}
+                href={page.link}
               >
-                {page}
+                { page.nome }
               </Button>
             ))}
           </Box>

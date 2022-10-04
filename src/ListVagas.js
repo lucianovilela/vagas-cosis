@@ -18,7 +18,7 @@ const ListVagas = () => {
   useEffect(() => {
     let ontem = new Date(data);
     ontem.setDate(data.getDate() - 1);
-    ontem.setHours(0,0,0,0);
+    ontem.setHours(0, 0, 0, 0);
     const docRef = collection(firestore, "reservas");
     console.log("hoje:", data, "amanha:", ontem);
     getDocsFromServer(
@@ -35,28 +35,28 @@ const ListVagas = () => {
   }, [data]);
 
   return (
-    <div style={{ height: 400 }}>
-      <Box sx={{ my: 4 }}>
-        {list.map((item) => (
-          <Box
-            key={item.id}
-            sx={{
-              mt: 3
-            }}
-          >
-            <Typography>{item.nome} </Typography>
-            <Typography sx={{display:debug?'flex': 'none'}}>{JSON.stringify(item.data)} </Typography>
-            <Chip
-              label={
-                item.vaga === "P" || item.vaga === "nan"
-                  ? "Sem reserva"
-                  : item.vaga
-              }
-            />
-          </Box>
-        ))}
-      </Box>
-    </div>
+
+    <Box sx={{ my: 4 }}>
+      {list.map((item) => (
+        <Box
+          key={item.id}
+          sx={{
+            mt: 3
+          }}
+        >
+          <Typography>{item.nome} </Typography>
+          <Typography sx={{ display: debug ? 'flex' : 'none' }}>{JSON.stringify(item.data)} </Typography>
+          <Chip
+            label={
+              item.vaga === "P" || item.vaga === "nan"
+                ? "Sem reserva"
+                : item.vaga
+            }
+          />
+        </Box>
+      ))}
+    </Box>
+
   );
 };
 

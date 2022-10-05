@@ -6,31 +6,34 @@ import {
   getDocsFromServer,
   query,
   where,
-  orderBy
+  orderBy,
+  getDoc
 } from "firebase/firestore";
 
 import { Box, Typography, Chip } from "@mui/material";
+import { red } from '@mui/material/colors'
 
 const ListVagas = () => {
   const [{ user, data, debug }] = useMyContext();
 
   const [list, setList] = useState([]);
-  useEffect(() => {
+  useEffect( () => {
     let ontem = new Date(data);
     ontem.setDate(data.getDate() - 1);
     ontem.setHours(0, 0, 0, 0);
     const docRef = collection(firestore, "reservas");
-    console.log("hoje:", data, "amanha:", ontem);
+
     getDocsFromServer(
       query(docRef, where("data", ">=", ontem), where("data", "<", data)),
       orderBy("nome")
     ).then((docs) => {
-      const l = [];
-
-      docs.forEach((doc) => {
-        l.push({ id: doc.id, ...doc.data(), data: doc.data().data.toDate() });
+      const temp =[];
+      docs.forEach(async (doc2) => {
+        const infoUser = await getDoc(doc2.data().user)
+        temp.push({ ...doc2.data(), data: doc2.data().data.toDate(), id: doc2.id, ...infoUser.data() })
       });
-      setList(l);
+
+      setList(temp);
     });
   }, [data]);
 
@@ -39,7 +42,7 @@ const ListVagas = () => {
     <Box sx={{ my: 4 }}>
       {list.map((item) => (
         <Box
-          key={item.id}
+
           sx={{
             mt: 3
           }}
@@ -53,6 +56,7 @@ const ListVagas = () => {
                 : item.vaga
             }
           />
+          {!item.cartao ? <Chip sx={{ color: red[600] }} label={'Sem cartão'} /> : ''}
         </Box>
       ))}
     </Box>

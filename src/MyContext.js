@@ -45,12 +45,18 @@ function Parent({ children }) {
             return{
               ...state,
               debug:state.debug
+            };
+          case "LOAD_LIST":
+            console.log('loadlist', action)
+            return{
+              ...state,
+              listaVagas :[ ...action.payload]
             }
         default:
           return { ...state };
       }
     },
-    { user: undefined, list: [], data: defaultDate, debug:false }
+    { user: undefined, listaVagas: [], data: defaultDate, debug:false }
   );
 
   const actions = useMemo(() => {
@@ -69,6 +75,9 @@ function Parent({ children }) {
       },
       toggleDebug: ()=> {
         dispatch({type:"SETDEBUG"})
+      },
+      loadList:(l)=>{
+        dispatch({type:'LOAD_LIST', payload:l})
       }
     };
   }, []);
